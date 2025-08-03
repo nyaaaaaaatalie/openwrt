@@ -378,6 +378,22 @@ define Device/compex_wpj428
 endef
 TARGET_DEVICES += compex_wpj428
 
+define Device/cradlepoint_ibr1700
+	$(call Device/FitzImage)
+	DEVICE_VENDOR := Cradlepoint
+	DEVICE_MODEL := IBR1700
+	SOC := qcom-ipq4029
+	FILESYSTEMS := squashfs
+	BLOCKSIZE := 64k
+	IMAGE_SIZE := 65536k
+	KERNEL_SIZE := 4096k
+	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
+	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev \
+		kmod-fs-ext4 e2fsprogs kmod-fs-f2fs mkf2fs losetup gpsd gpsd-clients
+endef
+TARGET_DEVICES += cradlepoint_ibr1700
+
+
 define Device/devolo_magic-2-wifi-next
 	$(call Device/FitzImage)
 	DEVICE_VENDOR := devolo

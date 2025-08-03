@@ -21,6 +21,9 @@ cilab,meshpoint-one)
 compex,wpj428)
 	ucidef_add_gpio_switch "sim_card_select" "SIM card select" "3" "0"
 	;;
+cradlepoint,ibr1700)
+	ucidef_add_gpio_switch "mpcie_vcc" "LTE power" "576" "0" # is this right??
+	;;
 mikrotik,cap-ac)
 	ucidef_add_gpio_switch "poe_passtrough" "POE passtrough enable" "514" "0"
 	;;
