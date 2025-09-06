@@ -557,6 +557,23 @@ endef
 $(eval $(call KernelPackage,phy-vitesse))
 
 
+define KernelPackage/phy-aeonsemi-as21xxx
+  SUBMENU:=$(NETWORK_DEVICES_MENU)
+  TITLE:=Aeonsemi AS21xxx 10G Ethernet PHY
+  DEPENDS:=+aeonsemi-as21xxx-firmware +kmod-libphy
+  KCONFIG:=CONFIG_AS21XXX_PHY
+  FILES:= \
+   $(LINUX_DIR)/drivers/net/phy/as21xxx.ko
+  AUTOLOAD:=$(call AutoLoad,18,as21xxx)
+endef
+
+define KernelPackage/phy-aeonsemi-as21x1x/description
+  Kernel modules for Aeonsemi AS21x1x 10G Ethernet PHY
+endef
+
+$(eval $(call KernelPackage,phy-aeonsemi-as21xxx))
+
+
 define KernelPackage/phy-airoha-en8811h
   SUBMENU:=$(NETWORK_DEVICES_MENU)
   TITLE:=Airoha EN8811H 2.5G Ethernet PHY
@@ -2069,6 +2086,27 @@ define KernelPackage/sfc-falcon/description
 endef
 
 $(eval $(call KernelPackage,sfc-falcon))
+
+
+define KernelPackage/sfc-siena
+  SUBMENU:=$(NETWORK_DEVICES_MENU)
+  TITLE:=Solarflare SFN5000/6000 'Siena' based card support
+  DEPENDS:=@PCI_SUPPORT +kmod-mdio +kmod-lib-crc32c +kmod-i2c-algo-bit +kmod-ptp +kmod-hwmon-core
+  KCONFIG:= \
+	CONFIG_SFC_SIENA \
+	CONFIG_SFC_SIENA_MTD=y \
+	CONFIG_SFC_SIENA_MCDI_MON=y \
+	CONFIG_SFC_SIENA_MCDI_LOGGING=y \
+	CONFIG_SFC_SIENA_SRIOV=y
+  FILES:=$(LINUX_DIR)/drivers/net/ethernet/sfc/siena/sfc-siena.ko
+  AUTOLOAD:=$(call AutoProbe,sfc-siena)
+endef
+
+define KernelPackage/sfc-siena/description
+  Solarflare SFN5000/6000 'Siena' based card support
+endef
+
+$(eval $(call KernelPackage,sfc-siena))
 
 
 define KernelPackage/wwan

@@ -23,8 +23,6 @@
 #define RTL838X_VLAN_PORT_TAG_STS_CTRL_OTAG_STS_MASK		GENMASK(3,2)
 #define RTL838X_VLAN_PORT_TAG_STS_CTRL_ITAG_STS_MASK		GENMASK(1,0)
 
-extern struct mutex smi_lock;
-
 /* see_dal_maple_acl_log2PhyTmplteField and src/app/diag_v2/src/diag_acl.c */
 /* Definition of the RTL838X-specific template field IDs as used in the PIE */
 enum template_field_id {
@@ -155,9 +153,9 @@ static void rtl838x_vlan_tables_read(u32 vlan, struct rtl838x_vlan_info *info)
 	struct table_reg *r = rtl_table_get(RTL8380_TBL_0, 0);
 
 	rtl_table_read(r, vlan);
-	info->tagged_ports = sw_r32(rtl_table_data(r, 0));
+	info->member_ports = sw_r32(rtl_table_data(r, 0));
 	v = sw_r32(rtl_table_data(r, 1));
-	pr_debug("VLAN_READ %d: %016llx %08x\n", vlan, info->tagged_ports, v);
+	pr_debug("VLAN_READ %d: %016llx %08x\n", vlan, info->member_ports, v);
 	rtl_table_release(r);
 
 	info->profile_id = v & 0x7;
@@ -178,7 +176,7 @@ static void rtl838x_vlan_set_tagged(u32 vlan, struct rtl838x_vlan_info *info)
 	/* Access VLAN table (0) via register 0 */
 	struct table_reg *r = rtl_table_get(RTL8380_TBL_0, 0);
 
-	sw_w32(info->tagged_ports, rtl_table_data(r, 0));
+	sw_w32(info->member_ports, rtl_table_data(r, 0));
 
 	v = info->profile_id;
 	v |= info->hash_mc_fid ? 0x8 : 0;
