@@ -22,7 +22,10 @@ compex,wpj428)
 	ucidef_add_gpio_switch "sim_card_select" "SIM card select" "3" "0"
 	;;
 cradlepoint,ibr1700)
-	ucidef_add_gpio_switch "mpcie_vcc" "LTE power" "576" "0" # is this right??
+	ucidef_add_gpio_switch "pwr_en_int1" "Internal Modem Power" "576" "1"
+	ucidef_add_gpio_switch "pwr_en_usb1" "USB Power" "625" "1"
+	ucidef_add_gpio_switch "pwr_en_mdm1" "Secondary Modem Bay Power" "630" "1"
+	ucidef_add_gpio_switch "2g_antenna_toggle" "2GHz Antenna Switch" "581" "0"
 	;;
 mikrotik,cap-ac)
 	ucidef_add_gpio_switch "poe_passtrough" "POE passtrough enable" "514" "0"

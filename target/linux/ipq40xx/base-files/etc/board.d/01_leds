@@ -33,9 +33,9 @@ avm,fritzbox-7530)
 	ucidef_set_led_wlan "wlan" "WLAN" "green:wlan" "phy0tpt"
 	;;
 cradlepoint,ibr1700)
-	ucidef_set_led_wlan "wlan2g" "WLAN2G" "blue:wlan2g" "phy0tpt"
+	ucidef_set_led_wlan "wlan2g" "WLAN2G" "green:wlan2g" "phy0tpt"
 	ucidef_set_led_wlan "wlan5g" "WLAN5G" "blue:wlan5g" "phy1tpt"
-	#ucidef_set_led_netdev "wwan" "WWAN" "white:wan-4" "wwan0"
+	ucidef_set_led_netdev "wwan" "WWAN" "white:wwan" "wlan0"
 	;;
 edgecore,oap100)
 	ucidef_set_led_wlan "wlan2g" "WLAN2G" "blue:wlan2g" "phy0tpt"

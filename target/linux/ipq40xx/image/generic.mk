@@ -369,6 +369,22 @@ define Device/compex_wpj428
 endef
 TARGET_DEVICES += compex_wpj428
 
+
+define Device/cradlepoint_ibr900
+	$(call Device/FitzImage)
+	DEVICE_VENDOR := Cradlepoint
+	DEVICE_MODEL := IBR900
+	SOC := qcom-ipq4019
+	FILESYSTEMS := squashfs
+	BLOCKSIZE := 64k
+	IMAGE_SIZE := 65536k
+	KERNEL_SIZE := 4096k
+	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
+	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev kmod-hwmon-lm90 uqmi gpsd gpsd-clients
+endef
+TARGET_DEVICES += cradlepoint_ibr900
+
+
 define Device/cradlepoint_ibr1700
 	$(call Device/FitzImage)
 	DEVICE_VENDOR := Cradlepoint
@@ -378,9 +394,9 @@ define Device/cradlepoint_ibr1700
 	BLOCKSIZE := 64k
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 4096k
+	CONFIG_TI_ADS7924 := 1
 	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
-	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev \
-		kmod-fs-ext4 e2fsprogs kmod-fs-f2fs mkf2fs losetup gpsd gpsd-clients
+	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev kmod-hwmon-lm90 uqmi gpsd gpsd-clients
 endef
 TARGET_DEVICES += cradlepoint_ibr1700
 
