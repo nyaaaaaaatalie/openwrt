@@ -23,6 +23,17 @@
     };
 
     soc {
+		counter@4a1000 {
+			compatible = "qcom,qca-gcnt";
+			reg = <0x4a1000 0x4>;
+		};
+		
+		tcsr@194b000 {
+			compatible = "qcom,tcsr";
+			reg = <0x194b000 0x100>;
+			qcom,usb-hsphy-mode-select = <TCSR_USB_HSPHY_HOST_MODE>;
+		};
+
 		ess_tcsr@1953000 {
 			compatible = "qcom,tcsr";
 			reg = <0x1953000 0x1000>;
@@ -53,78 +64,78 @@
     };
 
     gpio_export {
-			compatible = "gpio-export";
+		compatible = "gpio-export";
 
-			sim_door_detect {
-				gpio-export,name = "sim_door_detect";
-				gpio-export,input = <0>;
-				gpio-export,direction_may_change = <0>;
-				gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
-			};
-
-            conn_ign_sense {
-				gpio-export,name = "conn_ign_sense";
-				gpio-export,input = <0>;
-				gpio-export,direction_may_change = <0>;
-				gpios = <&tlmm 19 GPIO_ACTIVE_LOW>;
-			};
-
-            sata_ign_sense {
-				gpio-export,name = "sata_ign_sense";
-				gpio-export,input = <0>;
-				gpio-export,direction_may_change = <0>;
-				gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
-			};
-
-            pwr_off_toggle {
-                gpio-export,name = "pwr_off_toggle";
-                gpio-export,output = <0>;
-                gpio-export,direction_may_change = <0>;
-                gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
-            };
-
-            2g_antenna_toggle {
-                gpio-export,name = "2g_antenna_toggle";
-                gpio-export,output = <0>;
-                gpio-export,direction_may_change = <0>;
-                gpios = <&tlmm 69 GPIO_ACTIVE_HIGH>;
-            };
-
-            pwr_en_int1 {
-                gpio-export,name = "pwr_en_int1";
-                gpio-export,output = <1>;
-                gpio-export,direction_may_change = <0>;
-                gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
-            };
-
-            pwr_off_latch {
-                gpio-export,name = "pwr_off_latch";
-                gpio-export,output = <0>;
-                gpio-export,direction_may_change = <0>;
-                gpios = <&expander1 10 GPIO_ACTIVE_HIGH>;
-            };
-
-            pwr_en_usb1 {
-                gpio-export,name = "pwr_en_usb1";
-                gpio-export,output = <1>;
-                gpio-export,direction_may_change = <0>;
-                gpios = <&expander1 13 GPIO_ACTIVE_HIGH>;
-            };
-
-            pwr_en_mdm1 {
-                gpio-export,name = "pwr_en_mdm1";
-                gpio-export,output = <1>;
-                gpio-export,direction_may_change = <0>;
-                gpios = <&expander1 18 GPIO_ACTIVE_HIGH>;
-            };
-
-            conn_output {
-                gpio-export,name = "conn_output";
-                gpio-export,output = <0>;
-                gpio-export,direction_may_change = <0>;
-                gpios = <&expander1 7 GPIO_ACTIVE_HIGH>;
-            };
+		sim_door_detect {
+			gpio-export,name = "sim_door_detect";
+			gpio-export,input = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
 		};
+
+		conn_ign_sense {
+			gpio-export,name = "conn_ign_sense";
+			gpio-export,input = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 19 GPIO_ACTIVE_LOW>;
+		};
+
+		sata_ign_sense {
+			gpio-export,name = "sata_ign_sense";
+			gpio-export,input = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 53 GPIO_ACTIVE_LOW>;
+		};
+
+		pwr_off_toggle {
+			gpio-export,name = "pwr_off_toggle";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
+		};
+
+		2g_antenna_toggle {
+			gpio-export,name = "2g_antenna_toggle";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 69 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_en_int1 {
+			gpio-export,name = "pwr_en_int1";
+			gpio-export,output = <1>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 64 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_off_latch {
+			gpio-export,name = "pwr_off_latch";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&expander1 10 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_en_usb1 {
+			gpio-export,name = "pwr_en_usb1";
+			gpio-export,output = <1>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&expander1 13 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_en_mdm1 {
+			gpio-export,name = "pwr_en_mdm1";
+			gpio-export,output = <1>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&expander1 18 GPIO_ACTIVE_HIGH>;
+		};
+
+		conn_output {
+			gpio-export,name = "conn_output";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&expander1 7 GPIO_ACTIVE_HIGH>;
+		};
+	};
 
     leds {
         compatible = "gpio-leds";
@@ -350,11 +361,11 @@
 					#address-cells = <1>;
 					#size-cells = <1>;
 
-					macaddr_art_0: mac-address@0 {
+					macaddr_lan: mac-address@0 {
 						reg = <0x0 0x6>;
 					};
 
-					macaddr_art_6: mac-address@6 {
+					macaddr_wan: mac-address@6 {
 						reg = <0x6 0x6>;
 					};
 
@@ -395,11 +406,9 @@
         reg = <0x23>;
     };
 
-    // GMT G781
     temperature-sensor@77 {
         compatible = "lm90";
         reg = <0x4d>;
-        vcc-supply = <0x0f>;
         status = "ok";
     };
 
@@ -512,8 +521,6 @@
 	status = "okay";
 	pinctrl-0 = <&mdio_pins>;
 	pinctrl-names = "default";
-    reset-gpios = <&tlmm 47 GPIO_ACTIVE_LOW>;
-	reset-delay-us = <2000>;
     
 };
 
@@ -543,39 +550,47 @@
 
 &gmac {
 	status = "okay";
+	nvmem-cell-names = "mac-address";
+	nvmem-cells = <&macaddr_wan>;
 };
 
 &switch {
 	status = "okay";
-    //switch_cpu_bmp = <0x01>;
-    //switch_lan_bmp = <0x1e>;
-    //switch_wan_bmp = <0x20>;
-    //switch_mac_mode = <0x00>;
 };
 
 &swport1 {
     status = "okay";
     label = "wan";
+	nvmem-cell-names = "mac-address";
+	nvmem-cells = <&macaddr_wan>;
 };
 
 &swport2 {
 	status = "okay";
 	label = "lan4";
+	nvmem-cell-names = "mac-address";
+	nvmem-cells = <&macaddr_lan>;
 };
 
 &swport3 {
 	status = "okay";
 	label = "lan3";
+	nvmem-cell-names = "mac-address";
+	nvmem-cells = <&macaddr_lan>;
 };
 
 &swport4 {
 	status = "okay";
 	label = "lan2";
+	nvmem-cell-names = "mac-address";
+	nvmem-cells = <&macaddr_lan>;
 };
 
 &swport5 {
 	status = "okay";
 	label = "lan1";
+	nvmem-cell-names = "mac-address";
+	nvmem-cells = <&macaddr_lan>;
 };
 
 &usb2 {

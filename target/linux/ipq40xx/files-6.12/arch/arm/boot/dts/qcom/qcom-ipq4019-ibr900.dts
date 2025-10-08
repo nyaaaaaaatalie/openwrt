@@ -46,8 +46,126 @@
 
         reset {
             label = "reset";
-            gpios = <&tlmm 59 GPIO_ACTIVE_LOW>;
+            gpios = <&tlmm 58 GPIO_ACTIVE_LOW>;
             //linux,code = <KEY_RESTART>;
+        };
+    };
+
+	gpio_export {
+		conn_ign_sense {
+			gpio-export,name = "conn_ign_sense";
+			gpio-export,input = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 5 GPIO_ACTIVE_LOW>;
+		};
+
+		sata_ign_sense {
+			gpio-export,name = "sata_ign_sense";
+			gpio-export,input = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 4 GPIO_ACTIVE_LOW>;
+		};
+
+		pwr_off_toggle {
+			gpio-export,name = "pwr_off_toggle";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_en_int1 {
+			gpio-export,name = "pwr_en_int1";
+			gpio-export,output = <1>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&expander1 18 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_off_latch {
+			gpio-export,name = "pwr_off_latch";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&expander1 10 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_en_usb1 {
+			gpio-export,name = "pwr_en_usb1";
+			gpio-export,output = <1>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&expander1 13 GPIO_ACTIVE_HIGH>;
+		};
+
+		conn_output {
+			gpio-export,name = "conn_output";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&expander1 7 GPIO_ACTIVE_HIGH>;
+		};
+	};
+
+	leds {
+        compatible = "gpio-leds";
+
+        led_ss_0_blue: led-7 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_BLUE>;
+            gpios = <&expander1 0 GPIO_ACTIVE_LOW>;
+            label = "blue:ss_0";
+        };
+
+        led_ss_1_blue: led-8 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_BLUE>;
+            gpios = <&expander1 1 GPIO_ACTIVE_LOW>;
+            label = "blue:ss_1";
+        };
+
+        led_ss_2_blue: led-9 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_BLUE>;
+            gpios = <&expander1 2 GPIO_ACTIVE_LOW>;
+            label = "blue:ss_2";
+        };
+
+        led_ss_3_blue: led-10 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_BLUE>;
+            gpios = <&expander1 3 GPIO_ACTIVE_LOW>;
+            label = "blue:ss_3";
+        };
+
+        led_attn_red: led-11 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_RED>;
+            gpios = <&expander1 4 GPIO_ACTIVE_LOW>;
+            label = "red:attn";
+        };
+
+        led_gps_blue: led-12 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_BLUE>;
+            gpios = <&expander1 5 GPIO_ACTIVE_LOW>;
+            label = "blue:gps";
+        };
+
+        led_2g_green: led-13 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_GREEN>;
+            gpios = <&expander1 6 GPIO_ACTIVE_LOW>;
+            label = "green:wlan2g";
+        };
+
+        led_int_modem_red: led-15 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_RED>;
+            gpios = <&expander1 15 GPIO_ACTIVE_LOW>;
+            label = "red:int_modem";
+        };
+
+        led_int_modem_green: led-16 {
+            function = LED_FUNCTION_STATUS;
+            color = <LED_COLOR_ID_GREEN>;
+            gpios = <&expander1 14 GPIO_ACTIVE_LOW>;
+            label = "green:int_modem";
         };
     };
 };
@@ -144,13 +262,15 @@
 	pinctrl-names = "default";
 	status = "okay";
 
-    expander1: gpio@35 {
+    expander1: gpio@34 {
         compatible = "ti,tca6424";
         gpio-controller;
         #gpio-cells = <2>;
-        interrupts = <0x12>;
+        /*
+		interrupts = <0x12>;
         interrupt-parent = <&tlmm>;
-        reg = <0x23>;
+		*/
+        reg = <0x22>;
     };
 
 };
@@ -248,10 +368,7 @@
 &mdio {
 	status = "okay";
 	pinctrl-0 = <&mdio_pins>;
-	pinctrl-names = "default";
-    //reset-gpios = <&tlmm 47 GPIO_ACTIVE_LOW>;
-	//reset-delay-us = <2000>;
-    
+	pinctrl-names = "default";  
 };
 
 &ethphy0 {
