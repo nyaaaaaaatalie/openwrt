@@ -41,6 +41,33 @@
 		};
 	};
 
+	/* SW I2C Expander */
+	i2c-gpio {
+		compatible = "i2c-gpio";
+
+		sda-gpios = <&tlmm 0 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+		scl-gpios = <&tlmm 1 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+
+		i2c-gpio,delay-us = <0x02>;
+
+		#address-cells = <0x01>;
+		#size-cells = <0x00>;
+
+		status = "okay";
+
+		expander1: gpio@34 {
+			compatible = "ti,tca6424";
+			reg = <0x22>;
+			gpio-controller;
+			#gpio-cells = <0x02>;
+			
+			interrupts = <0x3f 0x00>;
+			interrupt-parent = <&tlmm>;
+			
+			status = "okay";
+		};
+	};
+
     keys {
         compatible = "gpio-keys";
 
@@ -257,7 +284,7 @@
 	};
 };
 
-&blsp1_i2c3 {
+/*&blsp1_i2c3 {
 	pinctrl-0 = <&i2c_0_pins>;
 	pinctrl-names = "default";
 	status = "okay";
@@ -266,15 +293,14 @@
         compatible = "ti,tca6424";
         gpio-controller;
         #gpio-cells = <2>;
-        /*
+        
 		interrupts = <0x12>;
         interrupt-parent = <&tlmm>;
-		*/
+		
         reg = <0x22>;
     };
 
-};
-
+};*/
 
 &cryptobam {
 	status = "okay";
@@ -314,14 +340,14 @@
 		};
 	};
 
-	i2c_0_pins: i2c_0_pinmux {
+	/*i2c_0_pins: i2c_0_pinmux {
 		mux {
 			pins = "gpio0", "gpio1";
-			function = "blsp_i2c0";
+			//function = "blsp_i2c0";
 			//drive-strength = <4>;
 			drive-open-drain;
 		};
-	};
+	};*/
 
 
 	serial_0_pins: serial_0_pinmux {
