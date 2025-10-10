@@ -380,7 +380,7 @@ define Device/cradlepoint_ibr600c
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 4096k
 	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
-	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev uqmi gpsd gpsd-clients
+	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev kmod-i2c-gpio uqmi gpsd gpsd-clients
 endef
 # not tested yet
 # TARGET_DEVICES += cradlepoint_ibr600c
@@ -396,7 +396,7 @@ define Device/cradlepoint_ibr900
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 4096k
 	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
-	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev uqmi gpsd gpsd-clients
+	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev kmod-i2c-gpio uqmi gpsd gpsd-clients
 endef
 TARGET_DEVICES += cradlepoint_ibr900
 

@@ -45,8 +45,8 @@
 	i2c-gpio {
 		compatible = "i2c-gpio";
 
-		sda-gpios = <&tlmm 0 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-		scl-gpios = <&tlmm 1 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+		sda-gpios = <&tlmm 1 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
+		scl-gpios = <&tlmm 0 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
 
 		i2c-gpio,delay-us = <0x02>;
 
