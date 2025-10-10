@@ -1,5 +1,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-/* Copyright (c) 2025, Natalie Moore <natalie@natalielucy.dev> */
+/* 
+	Copyright (c) 2025
+	Natalie Moore <natalie@natalielucy.dev> 
+	P. McDonnell <support@ipfm.systems>
+*/
 
 #include "qcom-ipq4019.dtsi"
 #include <dt-bindings/gpio/gpio.h>
@@ -405,6 +409,18 @@
     status = "okay";
 };
 
+&ethphy2 {
+    status = "okay";
+};
+
+&ethphy3 {
+    status = "okay";
+};
+
+&ethphy4 {
+    status = "okay";
+};
+
 &gmac {
 	status = "okay";
 };
@@ -415,12 +431,27 @@
 
 &swport1 {
     status = "okay";
-    label = "lan";
+    label = "wan";
 };
 
 &swport2 {
 	status = "okay";
-	label = "wan";
+	label = "lan";
+};
+
+&swport3 {
+	status = "okay";
+	label = "lan2";
+};
+
+&swport4 {
+	status = "okay";
+	label = "lan3";
+};
+
+&swport5 {
+	status = "okay";
+	label = "lan4";
 };
 
 &usb2 {
