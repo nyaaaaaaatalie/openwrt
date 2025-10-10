@@ -1,0 +1,92 @@
+// SPDX-License-Identifier: GPL-2.0-or-later
+/* Copyright (c) 2025, Natalie Moore <natalie@natalielucy.dev> */
+
+#include "qcom-ipq4029-brulk-common.dtsi"
+
+/ {
+    model = "Cradlepoint AER2200";
+	compatible = "cradlepoint,AER2200";
+};
+
+
+&blsp1_i2c3 {
+    poe: ltc4266@2f {
+		compatible = "ltc,ltc4266";
+        reg = <0x2f>;
+        status = "ok";
+    };
+};
+
+
+&mdio {
+    ethphy5: ethernet-phy@5 {
+        reg = <0x00>;
+    };
+
+    ethphy6: ethernet-phy@6 {
+        reg = <0x01>;
+    };
+
+    ethphy7: ethernet-phy@7 {
+        reg = <0x02>;
+    };
+
+    ethphy8: ethernet-phy@8 {
+        reg = <0x03>;
+    };
+
+    ethphy9: ethernet-phy@9 {
+        reg = <0x04>;
+    };
+
+    ethphy10: ethernet-phy@10 {
+        reg = <0x06>;
+    };
+
+    psgmiiphy2: psgmii-phy@11{
+        reg = <0x05>;
+    };
+
+    switch1 {
+            compatible = "qca,qca8327";
+            mdio = <&mdio>;
+            switch_cpu_bmp = <0x00>;
+            switch_lan_bmp = <0x3e>;
+            switch_wan_bmp = <0x00>;
+            psgmii-ethphy = <&psgmiiphy2>;
+
+            qcom,port_phyinfo {
+
+                port@0 {
+                    reg = <0x01>;
+                    phy-handle = <&ethphy5>;
+                };
+
+                port@1 {
+                    reg = <0x02>;
+                    phy-handle = <&ethphy6>;
+                };
+
+                port@2 {
+                    reg = <0x03>;
+                    phy-handle = <&ethphy7>;
+                };
+
+                port@3 {
+                    reg = <0x04>;
+                    phy-handle = <&ethphy8>;
+                };
+
+                port@4 {
+                    reg = <0x05>;
+                    phy-handle = <&ethphy9>;
+                };
+
+                port@5 {
+                    reg = <0x06>;
+                    phy-handle = <&ethphy10>;
+                };
+            };
+        };
+};
+

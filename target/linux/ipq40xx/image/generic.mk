@@ -370,6 +370,22 @@ endef
 TARGET_DEVICES += compex_wpj428
 
 
+define Device/cradlepoint_ibr600c
+	$(call Device/FitzImage)
+	DEVICE_VENDOR := Cradlepoint
+	DEVICE_MODEL := IBR600C
+	SOC := qcom-ipq4019
+	FILESYSTEMS := squashfs
+	BLOCKSIZE := 64k
+	IMAGE_SIZE := 65536k
+	KERNEL_SIZE := 4096k
+	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
+	DEVICE_PACKAGES := kmod-gpio-pca953x kmod-spi-dev uqmi gpsd gpsd-clients
+endef
+# not tested yet
+# TARGET_DEVICES += cradlepoint_ibr600c
+
+
 define Device/cradlepoint_ibr900
 	$(call Device/FitzImage)
 	DEVICE_VENDOR := Cradlepoint
@@ -385,20 +401,30 @@ endef
 TARGET_DEVICES += cradlepoint_ibr900
 
 
-define Device/cradlepoint_ibr1700
+define Device/cradlepoint_brulk
 	$(call Device/FitzImage)
-	DEVICE_VENDOR := Cradlepoint
-	DEVICE_MODEL := IBR1700
 	SOC := qcom-ipq4029
 	FILESYSTEMS := squashfs
 	BLOCKSIZE := 64k
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 4096k
-	CONFIG_TI_ADS7924 := 1
 	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
 	DEVICE_PACKAGES := ath10k-firmware-qca9984 kmod-gpio-pca953x kmod-spi-dev kmod-hwmon-lm90 uqmi gpsd gpsd-clients
 endef
-TARGET_DEVICES += cradlepoint_ibr1700
+
+
+define Device/cradlepoint_ibr1700
+	$(call Device/cradlepoint_brulk)
+	DEVICE_VENDOR := Cradlepoint
+	DEVICE_MODEL := IBR1700
+endef
+
+
+define Device/cradlepoint_aer2200
+	$(call Device/cradlepoint_brulk)
+	DEVICE_VENDOR := Cradlepoint
+	DEVICE_MODEL := AER2200
+endef
 
 
 define Device/devolo_magic-2-wifi-next
