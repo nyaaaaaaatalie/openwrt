@@ -418,6 +418,7 @@ define Device/cradlepoint_ibr1700
 	DEVICE_VENDOR := Cradlepoint
 	DEVICE_MODEL := IBR1700
 endef
+TARGET_DEVICES += cradlepoint_ibr1700
 
 
 define Device/cradlepoint_aer2200
@@ -425,6 +426,7 @@ define Device/cradlepoint_aer2200
 	DEVICE_VENDOR := Cradlepoint
 	DEVICE_MODEL := AER2200
 endef
+TARGET_DEVICES += cradlepoint_aer2200
 
 
 define Device/devolo_magic-2-wifi-next

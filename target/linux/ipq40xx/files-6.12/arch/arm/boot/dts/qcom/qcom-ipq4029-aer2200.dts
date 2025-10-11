@@ -4,8 +4,9 @@
 #include "qcom-ipq4029-brulk-common.dtsi"
 
 / {
+    /* Codename Bruce */
     model = "Cradlepoint AER2200";
-	compatible = "cradlepoint,AER2200";
+	compatible = "cradlepoint,aer2200";
 };
 
 

@@ -9,6 +9,7 @@
 #include <dt-bindings/soc/qcom,tcsr.h>
 
 / {
+	/* Common device tree fragments for both IBR1700 (Hulk) and AER2200 (Bruce) */
     aliases {
 		// TODO: Verify if the ethernet0 alias is needed
 		ethernet0 = &gmac;
