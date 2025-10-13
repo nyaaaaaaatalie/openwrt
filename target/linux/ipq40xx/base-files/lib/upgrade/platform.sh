@@ -128,6 +128,13 @@ platform_do_upgrade() {
 	wallys,dr40x9)
 		nand_do_upgrade "$1"
 		;;
+	cradlepoint,ibr1700 |\
+	cradlepoint,aer2200)
+		CI_KERNPART="0:HLOS"
+		CI_ROOTPART="rootfs"
+		CI_DATAPART="Filesystem"
+		emmc_do_upgrade "$1"
+		;;
 	glinet,gl-b2200)
 		CI_KERNPART="0:HLOS"
 		CI_ROOTPART="rootfs"

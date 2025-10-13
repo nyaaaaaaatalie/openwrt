@@ -15,6 +15,10 @@
 		ethernet0 = &gmac;
 	};
 
+	chosen {
+		bootargs-append = " root=/dev/mmcblk0p2";
+	};
+
     memory {
         device_type = "memory";
         reg = <0x80000000 0x10000000>;
@@ -452,6 +456,7 @@
 	pinctrl-0 = <&sd_pins>;
 	pinctrl-names = "default";
 	vqmmc-supply = <&vqmmc>;
+	non-removable;
 };
 
 &mdio {
