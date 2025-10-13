@@ -228,7 +228,8 @@
 
 	pinctrl-0 = <&spi_0_pins>;
 	pinctrl-names = "default";
-    cs-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+    cs-gpios = <&tlmm 54 GPIO_ACTIVE_HIGH>,
+			   <&tlmm 59 GPIO_ACTIVE_HIGH>;
 
     flash@0 {
 		compatible = "jedec,spi-nor";
@@ -286,25 +287,15 @@
 			};
 		};
 	};
+
+	nand@1 {
+		compatible = "spi-nand", "spinand,mt29f";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		reg = <1>;
+		spi-max-frequency = <24000000>;
+	};
 };
-
-/*&blsp1_i2c3 {
-	pinctrl-0 = <&i2c_0_pins>;
-	pinctrl-names = "default";
-	status = "okay";
-
-    expander1: gpio@34 {
-        compatible = "ti,tca6424";
-        gpio-controller;
-        #gpio-cells = <2>;
-        
-		interrupts = <0x12>;
-        interrupt-parent = <&tlmm>;
-		
-        reg = <0x22>;
-    };
-
-};*/
 
 &cryptobam {
 	status = "okay";
@@ -344,16 +335,6 @@
 		};
 	};
 
-	/*i2c_0_pins: i2c_0_pinmux {
-		mux {
-			pins = "gpio0", "gpio1";
-			//function = "blsp_i2c0";
-			//drive-strength = <4>;
-			drive-open-drain;
-		};
-	};*/
-
-
 	serial_0_pins: serial_0_pinmux {
 		mux {
 			pins = "gpio60", "gpio61";
@@ -361,38 +342,6 @@
 			bias-disable;
 		};
 	};
-
-    sd_pins: sd_pins {
-		pinmux {
-			function = "sdio";
-			pins = "gpio23", "gpio24", "gpio25", "gpio26",
-				"gpio28", "gpio29", "gpio30", "gpio31";
-			drive-strength = <10>;
-		};
-		pinmux_sd_clk {
-			function = "sdio";
-			pins = "gpio27";
-			drive-strength = <16>;
-		};
-		pinmux_sd7 {
-			function = "sdio";
-			pins = "gpio32";
-			drive-strength = <10>;
-			bias-disable;
-		};
-	};
-};
-
-&vqmmc {
-	status = "okay";
-};
-
-&sdhci {
-	status = "okay";
-
-	pinctrl-0 = <&sd_pins>;
-	pinctrl-names = "default";
-	vqmmc-supply = <&vqmmc>;
 };
 
 &mdio {
