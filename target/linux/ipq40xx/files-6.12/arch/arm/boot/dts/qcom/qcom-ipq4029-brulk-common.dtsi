@@ -457,6 +457,16 @@
 	pinctrl-names = "default";
 	vqmmc-supply = <&vqmmc>;
 	non-removable;
+
+	block {
+		compatible = "block-device";
+		partitions {
+			emmc_rootdata: block-partition-env {
+				partname = "rootfs_data";
+				partno = <4>;
+			};
+		};
+	};
 };
 
 &mdio {

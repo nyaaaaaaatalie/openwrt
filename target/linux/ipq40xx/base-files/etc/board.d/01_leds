@@ -41,8 +41,6 @@ cradlepoint,ibr1700)
 	ucidef_set_led_wlan "wlan5gaux" "WLAN5GAUX" "blue:5g_4x4" "phy0tpt"
 	ucidef_set_led_wlan "wlan2g" "WLAN2G" "green:wlan2g" "phy1tpt"
 	ucidef_set_led_wlan "wlan5g" "WLAN5G" "blue:5g_2x2" "phy2tpt"
-	ucidef_set_led_netdev "int_modem" "InternalModem" "green:int_modem" "wwan0" "link"
-	ucidef_set_led_netdev "ext_modem" "ExternalModem" "green:ext_modem" "wwan1" "link"
 	;;
 edgecore,oap100)
 	ucidef_set_led_wlan "wlan2g" "WLAN2G" "blue:wlan2g" "phy0tpt"

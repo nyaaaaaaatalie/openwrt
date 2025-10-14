@@ -382,63 +382,59 @@ TARGET_DEVICES += compex_wpj428
 
 define Cradlepoint/base_pkgs
 DEVICE_PACKAGES += kmod-gpio-pca953x \
-uqmi kmod-usb-acm kmod-usb-net kmod-usb-net-cdc-qmi kmod-usb-serial kmod-usb-serial-option \
-gpsd gpsd-clients
+uqmi kmod-usb-acm kmod-usb-net kmod-usb-net-cdc-qmi kmod-usb-serial kmod-usb-serial-option
 endef
 
 
-define Device/cradlepoint_ibr600c
+# Base defs for the IBR600C and IBR900
+define Device/cradlepoint_ibr_c
 	$(call Device/FitzImage)
 	$(call Cradlepoint/base_pkgs)
 	DEVICE_VENDOR := Cradlepoint
-	DEVICE_MODEL := IBR600C
-	SOC := qcom-ipq4019
-	FILESYSTEMS := squashfs
-	BLOCKSIZE := 32k
-	IMAGE_SIZE := 65536k
-	KERNEL_SIZE := 4096k
-	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
-	DEVICE_PACKAGES += kmod-spi-dev kmod-i2c-gpio 
-endef
-# not tested yet
-# TARGET_DEVICES += cradlepoint_ibr600c
-
-
-define Device/cradlepoint_ibr900
-	$(call Device/FitzImage)
-	$(call Cradlepoint/base_pkgs)
-	DEVICE_VENDOR := Cradlepoint
-	DEVICE_MODEL := IBR900
 	DEVICE_DTS_CONFIG := config@ap.dk01.1-c2
 	SOC := qcom-ipq4019
 	FILESYSTEMS := squashfs
 	BLOCKSIZE := 32k
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 4096k
-	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | append-metadata
+	IMAGE/sysupgrade.bin := copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | sysupgrade-tar kernel=$$$$@ | append-metadata
 	DEVICE_PACKAGES += kmod-spi-dev kmod-i2c-gpio
+endef
+
+
+define Device/cradlepoint_ibr600c
+	$(call Device/cradlepoint_ibr_c)
+	DEVICE_MODEL := IBR600C
+endef
+TARGET_DEVICES += cradlepoint_ibr600c
+
+
+define Device/cradlepoint_ibr900
+	$(call Device/cradlepoint_ibr_c)
+	DEVICE_MODEL := IBR900
 endef
 TARGET_DEVICES += cradlepoint_ibr900
 
 
+# Base defs for IBR1700 and AER2200
 define Device/cradlepoint_brulk
 	$(call Device/FitImage)
 	$(call Cradlepoint/base_pkgs)
+	DEVICE_VENDOR := Cradlepoint
 	SOC := qcom-ipq4029
 	DEVICE_DTS_CONFIG := config@ap.dk04.1-c3
 	FILESYSTEMS := squashfs
 	BLOCKSIZE := 32k
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 8192k
-	IMAGES += sysupgrade-cp.bin
-	IMAGE/sysupgrade-cp.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | sysupgrade-tar kernel=$$$$@ | append-metadata
-	DEVICE_PACKAGES += kmod-mmc ath10k-firmware-qca9984 kmod-spi-dev kmod-hwmon-lm90
+	IMAGES += sysupgrade.bin
+	IMAGE/sysupgrade.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | sysupgrade-tar kernel=$$$$@ | append-metadata
+	DEVICE_PACKAGES += kmod-mmc ath10k-firmware-qca9984 kmod-spi-dev kmod-hwmon-lm90 parted
 endef
 
 
 define Device/cradlepoint_ibr1700
 	$(call Device/cradlepoint_brulk)
-	DEVICE_VENDOR := Cradlepoint
 	DEVICE_MODEL := IBR1700
 endef
 TARGET_DEVICES += cradlepoint_ibr1700
@@ -446,7 +442,6 @@ TARGET_DEVICES += cradlepoint_ibr1700
 
 define Device/cradlepoint_aer2200
 	$(call Device/cradlepoint_brulk)
-	DEVICE_VENDOR := Cradlepoint
 	DEVICE_MODEL := AER2200
 endef
 TARGET_DEVICES += cradlepoint_aer2200

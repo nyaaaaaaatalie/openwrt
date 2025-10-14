@@ -45,5 +45,3 @@ if __name__ == '__main__':
     with (open(output_gzip_path, 'wb') as o):
         o.write(in_file)
         o.write(footer)
-
-
