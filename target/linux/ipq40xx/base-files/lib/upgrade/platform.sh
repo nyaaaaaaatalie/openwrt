@@ -130,9 +130,17 @@ platform_do_upgrade() {
 		;;
 	cradlepoint,ibr1700 |\
 	cradlepoint,aer2200)
+		# check for renaming the data partition
+		# parted doesn't exist in the ramfs
+		# mmcp4_part=$(cat /sys/class/block/mmcblk0p4/uevent | grep PARTNAME | tr -d 'PARTNAME=')
+
+		# if [ "$mmcp4_part" = "Filesystem" ]; then
+		# 	parted /dev/mmcblk0 name 4 rootfs_data
+		# fi
+
 		CI_KERNPART="0:HLOS"
 		CI_ROOTPART="rootfs"
-		CI_DATAPART="Filesystem"
+		CI_DATAPART="rootfs_data"
 		emmc_do_upgrade "$1"
 		;;
 	glinet,gl-b2200)
