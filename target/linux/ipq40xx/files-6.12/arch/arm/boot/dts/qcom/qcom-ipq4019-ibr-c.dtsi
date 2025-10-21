@@ -22,6 +22,10 @@
         reg = <0x80000000 0x10000000>;
     };
 
+	chosen {
+		bootargs-append = " ubi.mtd=ubi ubi.block=0,1 root=/dev/ubiblock0_1";
+	};
+
     soc {
 		ess_tcsr@1953000 {
 			compatible = "qcom,tcsr";
@@ -75,7 +79,7 @@
         reset {
             label = "reset";
             gpios = <&tlmm 58 GPIO_ACTIVE_LOW>;
-            //linux,code = <KEY_RESTART>;
+            linux,code = <KEY_RESTART>;
         };
     };
 
@@ -247,39 +251,45 @@
 				read-only;
 			};
 
-			partition1@40000 {
-				label = "0:MIBIB";
-				reg = <0x00040000 0x00020000>;
-				read-only;
-			};
-
-			partition2@60000 {
+			partition1@60000 {
 				label = "0:QSEE";
 				reg = <0x00060000 0x00060000>;
 				read-only;
 			};
 
-			partition3@c0000 {
-				label = "0:CDT";
-				reg = <0x000c0000 0x00010000>;
-				read-only;
-			};
-
-			partition4@d0000 {
-				label = "0:DDRPARAMS";
-				reg = <0x000d0000 0x00010000>;
-				read-only;
-			};
-
-			partition5@e0000 {
+			partition2@e0000 {
 				label = "0:APPSBLENV"; /* uboot env */
 				reg = <0x000e0000 0x00010000>;
 				read-only;
 			};
 
-			partition6@f0000 {
+			partition3@f0000 {
 				label = "0:APPSBL"; /* uboot */
 				reg = <0x000f0000 0x00080000>;
+				read-only;
+			};
+
+			partition4@170000 {
+				label = "0:ART";
+				reg = <0x00170000 0x00010000>;
+				read-only;
+			};
+
+			partition5@180000 {
+				label = "0:CUSTDATA";
+				reg = <0x00180000 0x00010000>;
+				read-only;
+			};
+
+			partition6@170000 {
+				label = "Filemanager";
+				reg = <0x00190000 0x00040000>;
+				read-only;
+			};
+
+			partition7@170000 {
+				label = "2nd Filemanager";
+				reg = <0x001d0000 0x00040000>;
 				read-only;
 			};
 		};
@@ -291,6 +301,27 @@
 		#size-cells = <1>;
 		reg = <1>;
 		spi-max-frequency = <24000000>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition0@0 {
+				label = "ubi";
+				reg = <0x00000000 0x01f00000>;
+			};
+
+			partition1@3800000 {
+				label = "Upgrade";
+				reg = <0x01f00000 0x01f00000>;
+			};
+
+			partition2@7000000 {
+				label = "Filesystem";
+				reg = <0x03e00000 0x0C200000>;
+			};
+		};
 	};
 };
 

@@ -128,6 +128,13 @@ platform_do_upgrade() {
 	wallys,dr40x9)
 		nand_do_upgrade "$1"
 		;;
+	cradlepoint,ibr600c|\
+	cradlepoint,ibr900)
+		CI_KERNPART="kernel"
+		CI_ROOTPART="ubi_rootfs"
+		CI_DATAPART="rootfs_data"
+		nand_do_upgrade "$1"
+		;;
 	cradlepoint,ibr1700 |\
 	cradlepoint,aer2200)
 		# check for renaming the data partition

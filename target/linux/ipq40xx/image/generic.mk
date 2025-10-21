@@ -390,14 +390,16 @@ endef
 define Device/cradlepoint_ibr_c
 	$(call Device/FitzImage)
 	$(call Cradlepoint/base_pkgs)
+	$(call Device/UbiFit)
 	DEVICE_VENDOR := Cradlepoint
-	DEVICE_DTS_CONFIG := config@ap.dk01.1-c2
+	DEVICE_DTS_CONFIG := config@5
 	SOC := qcom-ipq4019
 	FILESYSTEMS := squashfs
-	BLOCKSIZE := 32k
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
 	IMAGE_SIZE := 65536k
-	KERNEL_SIZE := 4096k
-	IMAGE/sysupgrade.bin := copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | sysupgrade-tar kernel=$$$$@ | append-metadata
+	KERNEL_SIZE := 8192k
+	IMAGE/sysupgrade.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | sysupgrade-tar kernel=$$$$@ | append-metadata
 	DEVICE_PACKAGES += kmod-spi-dev kmod-i2c-gpio
 endef
 
