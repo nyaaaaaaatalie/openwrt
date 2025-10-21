@@ -40,6 +40,10 @@ cradlepoint,ibr1700)
 
 	fi
 	;;
+meraki,gx20|\
+meraki,z3)
+	ucidef_add_gpio_switch "lan5_poe_disable" "LAN5 PoE disable" "540" "0"
+	;;
 mikrotik,cap-ac)
 	ucidef_add_gpio_switch "poe_passtrough" "POE passtrough enable" "514" "0"
 	;;
