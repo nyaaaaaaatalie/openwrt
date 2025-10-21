@@ -10,21 +10,22 @@
 
 / {
 	/* Common device tree fragments for both IBR1700 (Hulk) and AER2200 (Bruce) */
-    aliases {
-		// TODO: Verify if the ethernet0 alias is needed
-		ethernet0 = &gmac;
+	aliases {
+		led-failsafe = &led_attn_red;
+		led-upgrade = &led_attn_red;
+		label-mac-device = &gmac;
 	};
 
 	chosen {
 		bootargs-append = " root=/dev/mmcblk0p2";
 	};
 
-    memory {
-        device_type = "memory";
-        reg = <0x80000000 0x10000000>;
-    };
+	memory {
+		device_type = "memory";
+		reg = <0x80000000 0x10000000>;
+	};
 
-    soc {
+	soc {
 		counter@4a1000 {
 			compatible = "qcom,qca-gcnt";
 			reg = <0x4a1000 0x4>;
@@ -55,17 +56,17 @@
 		};
 	};
 
-    keys {
-        compatible = "gpio-keys";
+	keys {
+		compatible = "gpio-keys";
 
-        reset {
-            label = "reset";
-            gpios = <&tlmm 59 GPIO_ACTIVE_LOW>;
-            //linux,code = <KEY_RESTART>;
-        };
-    };
+		reset {
+			label = "reset";
+			gpios = <&tlmm 59 GPIO_ACTIVE_LOW>;
+			//linux,code = <KEY_RESTART>;
+		};
+	};
 
-    gpio_export {
+	gpio_export {
 		compatible = "gpio-export";
 
 		sim_door_detect {
@@ -111,100 +112,100 @@
 		};
 	};
 
-    leds {
-        compatible = "gpio-leds";
+	leds {
+		compatible = "gpio-leds";
 
-        led_ext_modem_red: led-0 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_RED>;
-            gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
-            label = "red:ext_modem";
-        };
+		led_ext_modem_red: led-0 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_RED>;
+			gpios = <&tlmm 66 GPIO_ACTIVE_LOW>;
+			label = "red:ext_modem";
+		};
 
-        led_ext_modem_green: led-1 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_GREEN>;
-            gpios = <&tlmm 67 GPIO_ACTIVE_LOW>;
-            label = "green:ext_modem";
-        };
+		led_ext_modem_green: led-1 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_GREEN>;
+			gpios = <&tlmm 67 GPIO_ACTIVE_LOW>;
+			label = "green:ext_modem";
+		};
 
-        led_wwan_white: led-2 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_WHITE>;
-            gpios = <&tlmm 68 GPIO_ACTIVE_LOW>;
-            label = "white:wwan";
-        };
+		led_wwan_white: led-2 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_WHITE>;
+			gpios = <&tlmm 68 GPIO_ACTIVE_LOW>;
+			label = "white:wwan";
+		};
 
-        led_ss_0_blue: led-7 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_BLUE>;
-            gpios = <&expander1 0 GPIO_ACTIVE_LOW>;
-            label = "blue:ss_0";
-        };
+		led_ss_0_blue: led-7 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			gpios = <&expander1 0 GPIO_ACTIVE_LOW>;
+			label = "blue:ss_0";
+		};
 
-        led_ss_1_blue: led-8 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_BLUE>;
-            gpios = <&expander1 1 GPIO_ACTIVE_LOW>;
-            label = "blue:ss_1";
-        };
+		led_ss_1_blue: led-8 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			gpios = <&expander1 1 GPIO_ACTIVE_LOW>;
+			label = "blue:ss_1";
+		};
 
-        led_ss_2_blue: led-9 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_BLUE>;
-            gpios = <&expander1 2 GPIO_ACTIVE_LOW>;
-            label = "blue:ss_2";
-        };
+		led_ss_2_blue: led-9 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			gpios = <&expander1 2 GPIO_ACTIVE_LOW>;
+			label = "blue:ss_2";
+		};
 
-        led_ss_3_blue: led-10 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_BLUE>;
-            gpios = <&expander1 3 GPIO_ACTIVE_LOW>;
-            label = "blue:ss_3";
-        };
+		led_ss_3_blue: led-10 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			gpios = <&expander1 3 GPIO_ACTIVE_LOW>;
+			label = "blue:ss_3";
+		};
 
-        led_attn_red: led-11 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_RED>;
-            gpios = <&expander1 4 GPIO_ACTIVE_LOW>;
-            label = "red:attn";
-        };
+		led_attn_red: led-11 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_RED>;
+			gpios = <&expander1 4 GPIO_ACTIVE_LOW>;
+			label = "red:attn";
+		};
 
-        led_gps_blue: led-12 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_BLUE>;
-            gpios = <&expander1 5 GPIO_ACTIVE_LOW>;
-            label = "blue:gps";
-        };
+		led_gps_blue: led-12 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			gpios = <&expander1 5 GPIO_ACTIVE_LOW>;
+			label = "blue:gps";
+		};
 
-        led_2g_green: led-13 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_GREEN>;
-            gpios = <&expander1 6 GPIO_ACTIVE_LOW>;
-            label = "green:wlan2g";
-        };
+		led_2g_green: led-13 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_GREEN>;
+			gpios = <&expander1 6 GPIO_ACTIVE_LOW>;
+			label = "green:wlan2g";
+		};
 
-        led_5g_blue: led-14 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_BLUE>;
-            gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
-            label = "blue:wlan5g";
-        };
+		led_5g_blue: led-14 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
+			label = "blue:wlan5g";
+		};
 
-        led_int_modem_red: led-15 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_RED>;
-            gpios = <&expander1 15 GPIO_ACTIVE_LOW>;
-            label = "red:int_modem";
-        };
+		led_int_modem_red: led-15 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_RED>;
+			gpios = <&expander1 15 GPIO_ACTIVE_LOW>;
+			label = "red:int_modem";
+		};
 
-        led_int_modem_green: led-16 {
-            function = LED_FUNCTION_STATUS;
-            color = <LED_COLOR_ID_GREEN>;
-            gpios = <&expander1 14 GPIO_ACTIVE_LOW>;
-            label = "green:int_modem";
-        };
-    };
+		led_int_modem_green: led-16 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_GREEN>;
+			gpios = <&expander1 14 GPIO_ACTIVE_LOW>;
+			label = "green:int_modem";
+		};
+	};
 };
 
 &watchdog {
@@ -224,31 +225,31 @@
 };
 
 &blsp1_uart1 {
-        status = "okay";
-        pinctrl-0 = <&serial_0_pins>;
-        pinctrl-names = "default";
+		status = "okay";
+		pinctrl-0 = <&serial_0_pins>;
+		pinctrl-names = "default";
 };
 
 &blsp1_uart2 {
-        status = "okay";
-        pinctrl-0 = <&serial_1_pins>;
-        pinctrl-names = "default";
+		status = "okay";
+		pinctrl-0 = <&serial_1_pins>;
+		pinctrl-names = "default";
 };
 
 &blsp1_spi1 {
-    status = "okay";
+	status = "okay";
 
 	pinctrl-0 = <&spi_0_pins>;
 	pinctrl-names = "default";
-    cs-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+	cs-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
 
-    flash@0 {
+	flash@0 {
 		compatible = "jedec,spi-nor";
 		spi-max-frequency = <24000000>;
 		reg = <0>;
 
-        #address-cells = <1>;
-        #size-cells = <1>;
+		#address-cells = <1>;
+		#size-cells = <1>;
 
 		partitions {
 			compatible = "fixed-partitions";
@@ -323,7 +324,7 @@
 						reg = <0x5000 0x2f20>;
 					};
 
-                    precal_art_9000: precal@9000 {
+					precal_art_9000: precal@9000 {
 						reg = <0x9000 0x2f20>;
 					};
 				};
@@ -343,21 +344,21 @@
 	pinctrl-names = "default";
 	status = "okay";
 
-    expander1: gpio@35 {
-        compatible = "ti,tca6424";
-        gpio-controller;
-        #gpio-cells = <2>;
-        interrupts = <0x12>;
-        interrupt-parent = <&tlmm>;
-        reg = <0x23>;
-    };
+	expander1: gpio@35 {
+		compatible = "ti,tca6424";
+		gpio-controller;
+		#gpio-cells = <2>;
+		interrupts = <0x12>;
+		interrupt-parent = <&tlmm>;
+		reg = <0x23>;
+	};
 
-    therm: temperature-sensor@77 {
-        compatible = "gmt,g781";
-        reg = <0x4d>;
+	therm: temperature-sensor@77 {
+		compatible = "gmt,g781";
+		reg = <0x4d>;
 		#thermal-sensor-cells = <1>;
-        status = "ok";
-    };
+		status = "ok";
+	};
 };
 
 
@@ -425,7 +426,7 @@
 		};
 	};
 
-    sd_pins: sd_pins {
+	sd_pins: sd_pins {
 		pinmux {
 			function = "sdio";
 			pins = "gpio23", "gpio24", "gpio25", "gpio26",
@@ -479,27 +480,27 @@
 };
 
 &ethphy0 {
-    reg = <0x08>;
+	reg = <0x08>;
 };
 
 &ethphy1 {
-    reg = <0x09>;
+	reg = <0x09>;
 };
 
 &ethphy2 {
-    reg = <0x0a>;
+	reg = <0x0a>;
 };
 
 &ethphy3 {
-    reg = <0x0b>;
+	reg = <0x0b>;
 };
 
 &ethphy4 {
-    reg = <0x0c>;
+	reg = <0x0c>;
 };
 
 &psgmiiphy {
-    reg = <0x0d>;
+	reg = <0x0d>;
 };
 
 &gmac {
@@ -513,8 +514,8 @@
 };
 
 &swport1 {
-    status = "okay";
-    label = "wan";
+	status = "okay";
+	label = "wan";
 	nvmem-cell-names = "mac-address";
 	nvmem-cells = <&macaddr_wan>;
 };

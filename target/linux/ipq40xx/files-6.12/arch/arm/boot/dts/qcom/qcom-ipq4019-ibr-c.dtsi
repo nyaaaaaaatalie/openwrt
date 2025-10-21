@@ -13,8 +13,9 @@
 
 / {
     aliases {
-		// TODO: Verify if the ethernet0 alias is needed
-		ethernet0 = &gmac;
+		led-failsafe = &led_attn_red;
+		led-upgrade = &led_attn_red;
+		label-mac-device = &gmac;
 	};
 
     memory {
