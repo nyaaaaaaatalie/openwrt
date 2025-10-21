@@ -189,8 +189,9 @@ case "$FIRMWARE" in
 	cellc,rtl30vw)
 		caldata_extract "0:ART" 0x5000 0x2f20
 		;;
-	cradlepoint,ibr900 |\
-	cradlepoint,ibr1700 |\
+	cradlepoint,ibr600c|\
+	cradlepoint,ibr900|\
+	cradlepoint,ibr1700|\
 	cradlepoint,aer2200)
 		caldata_extract "0:ART" 0x5000 0x2f20
 		# HACK: hardcode this to USA (?)

@@ -21,6 +21,16 @@ cilab,meshpoint-one)
 compex,wpj428)
 	ucidef_add_gpio_switch "sim_card_select" "SIM card select" "3" "0"
 	;;
+cradlepoint,aer2200)
+	ucidef_add_gpio_switch "pwr_en_int1" "Internal Modem Power" "576" "1"
+	ucidef_add_gpio_switch "pwr_en_usb1" "USB Power" "625" "1"
+	ucidef_add_gpio_switch "pwr_en_mdm1" "Secondary Modem Bay Power" "630" "1"
+	;;
+cradlepoint,ibr600c|\
+cradlepoint,ibr900)
+	ucidef_add_gpio_switch "pwr_en_int1" "Internal Modem Power" "576" "1"
+	ucidef_add_gpio_switch "pwr_en_usb1" "USB Power" "625" "1"
+	;;
 cradlepoint,ibr1700)
 	ucidef_add_gpio_switch "pwr_en_int1" "Internal Modem Power" "576" "1"
 	ucidef_add_gpio_switch "pwr_en_usb1" "USB Power" "625" "1"
