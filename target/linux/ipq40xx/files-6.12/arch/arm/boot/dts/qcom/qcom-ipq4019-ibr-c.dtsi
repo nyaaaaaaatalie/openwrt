@@ -85,6 +85,8 @@
     };
 
 	gpio_export {
+		compatible = "gpio-export";
+
 		conn_ign_sense {
 			gpio-export,name = "conn_ign_sense";
 			gpio-export,input = <0>;
@@ -422,5 +424,14 @@
 };
 
 &usb3_hs_phy {
+	status = "okay";
+};
+
+
+&wifi0 {
+	status = "okay";
+};
+
+&wifi1 {
 	status = "okay";
 };

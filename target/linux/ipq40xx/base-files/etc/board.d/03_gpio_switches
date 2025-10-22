@@ -28,7 +28,7 @@ cradlepoint,aer2200)
 	;;
 cradlepoint,ibr600c|\
 cradlepoint,ibr900)
-	ucidef_add_gpio_switch "pwr_en_int1" "Internal Modem Power" "576" "1"
+	ucidef_add_gpio_switch "pwr_en_int1" "Internal Modem Power" "630" "1"
 	ucidef_add_gpio_switch "pwr_en_usb1" "USB Power" "625" "1"
 	;;
 cradlepoint,ibr1700)
@@ -47,6 +47,7 @@ cradlepoint,ibr1700)
 		# silence kernel logs as it will clog the GPS chip (they are muxed)
 		uci set system.@system[0].kconloglevel=3
 		uci set system.@system[0].conloglevel=3
+		# TODO: remove console from inittab
 
 	fi
 	;;

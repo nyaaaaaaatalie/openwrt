@@ -75,19 +75,19 @@ ipq40xx_setup_interfaces()
 	cellc,rtl30vw)
 		ucidef_set_interface_lan "lan1 lan2"
 		;;
-	cradlepoint,ibr600c|\
-	cradlepoint,ibr900)
-		ucidef_set_interfaces_lan_wan "lan" "wan"
-		ucidef_set_interface "wwan" device "/dev/cdc-wdm0" protocol "qmi"
-		;;
-	cradlepoint,ibr1700)
-		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "wan"
-		ucidef_set_interface "wwan" device "/dev/cdc-wdm0" protocol "qmi"
-		;;
 	cradlepoint,aer2200)
 		# more intfs tbd
 		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "wan"
-		ucidef_set_interface "wwan" device "/dev/cdc-wdm0" protocol "qmi"
+		ucidef_set_interface "wwan" device "/dev/cdc-wdm0" protocol "modemmanager"
+		;;
+	cradlepoint,ibr600c|\
+	cradlepoint,ibr900)
+		ucidef_set_interfaces_lan_wan "lan" "wan"
+		ucidef_set_interface "wwan" device "/dev/cdc-wdm0" protocol "modemmanager"
+		;;
+	cradlepoint,ibr1700)
+		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "wan"
+		ucidef_set_interface "wwan" device "/dev/cdc-wdm0" protocol "modemmanager"
 		;;
 	compex,wpj428)
 		ucidef_set_interface_lan "lan1 lan2"
@@ -203,7 +203,9 @@ ipq40xx_setup_macs()
 	cilab,meshpoint-one)
 		label_mac=$(mtd_get_mac_binary "ART" 0x1006)
 		;;
-	#cradlepoint,ibr900 |\
+	cradlepoint,aer2200|\
+	cradlepoint,ibr600c|\
+	cradlepoint,ibr900|\
 	cradlepoint,ibr1700)
 		label_mac=$(mtd_get_mac_binary "0:ART" 0x1006)
 		;;
@@ -299,9 +301,9 @@ cradlepoint_setup()
 	local board="$1"
 
 	case "$board" in
-	cradlepoint,ibr600c |\
-	cradlepoint,ibr900 |\
-	cradlepoint,ibr1700 |\
+	cradlepoint,ibr600c|\
+	cradlepoint,ibr900|\
+	cradlepoint,ibr1700|\
 	cradlepoint,aer2200)
 		serial=$(mtd_get_custdata "SerialNumber")
 		quasi_uid=$(mtd_get_custdata "MAC0" | cut -c 9-)
