@@ -77,7 +77,7 @@ ipq40xx_setup_interfaces()
 		;;
 	cradlepoint,aer2200)
 		# more intfs tbd
-		ucidef_set_interfaces_lan_wan "lan1 lan2 lan3 lan4" "wan"
+		ucidef_set_interfaces_lan_wan "lan6 lan7 lan8 lan9" "wan"
 		ucidef_set_interface "wwan" device "/dev/cdc-wdm0" protocol "modemmanager"
 		;;
 	cradlepoint,ibr600c|\

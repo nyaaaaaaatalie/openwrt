@@ -2,92 +2,145 @@
 /* Copyright (c) 2025, Natalie Moore <natalie@natalielucy.dev> */
 
 #include "qcom-ipq4029-brulk-common.dtsi"
+#include <dt-bindings/leds/common.h>
 
 / {
-    /* Codename Bruce */
-    model = "Cradlepoint AER2200";
+	/* Codename Bruce */
+	model = "Cradlepoint AER2200";
 	compatible = "cradlepoint,aer2200";
-};
 
+	soc {
+		ess_tcsr@1953000 {
+			compatible = "qcom,tcsr";
+			reg = <0x1953000 0x1000>;
+			// ???
+			qcom,ess-interface-select = <TCSR_ESS_PSGMII_RGMII5>;
+		};
+	};
+
+	leds {
+		led_vpn_green: led-12 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_GREEN>;
+			gpios = <&expander1 5 GPIO_ACTIVE_LOW>;
+			label = "green:vpn";
+		};
+	};
+};
 
 &blsp1_i2c3 {
-    poe: ltc4266@2f {
+	poe: ltc4266@2f {
 		compatible = "ltc,ltc4266";
-        reg = <0x2f>;
-        status = "ok";
-    };
+		reg = <0x2f>;
+		status = "ok";
+	};
 };
-
 
 &mdio {
-    ethphy5: ethernet-phy@5 {
-        reg = <0x00>;
-    };
+	ethphy5: ethernet-phy@5 {
+		/* uplink? */
+		reg = <0x00>;
+	};
 
-    ethphy6: ethernet-phy@6 {
-        reg = <0x01>;
-    };
+	ethphy6: ethernet-phy@6 {
+		reg = <0x01>;
+	};
 
-    ethphy7: ethernet-phy@7 {
-        reg = <0x02>;
-    };
+	ethphy7: ethernet-phy@7 {
+		reg = <0x02>;
+	};
 
-    ethphy8: ethernet-phy@8 {
-        reg = <0x03>;
-    };
+	ethphy8: ethernet-phy@8 {
+		reg = <0x03>;
+	};
 
-    ethphy9: ethernet-phy@9 {
-        reg = <0x04>;
-    };
+	ethphy9: ethernet-phy@9 {
+		reg = <0x04>;
+	};
 
-    ethphy10: ethernet-phy@10 {
-        reg = <0x06>;
-    };
+	ethphy10: ethernet-phy@a {
+		/* external PHY */
+		reg = <0x06>;
+	};
 
-    psgmiiphy2: psgmii-phy@11{
-        reg = <0x05>;
-    };
+	ext-switch1@10 {
+		compatible = "qca,qca8337";
+		dsa,member = <1 0>;
+		reg = <0x10>;
+		switch_cpu_bmp = <0x00>;
+		switch_lan_bmp = <0x3e>;
+		switch_wan_bmp = <0x00>;
+		qca,ar8327-initvals = <0x00 0x00 0x10 0x261320>;
 
-    switch1 {
-            compatible = "qca,qca8327";
-            mdio = <&mdio>;
-            switch_cpu_bmp = <0x00>;
-            switch_lan_bmp = <0x3e>;
-            switch_wan_bmp = <0x00>;
-            psgmii-ethphy = <&psgmiiphy2>;
 
-            qcom,port_phyinfo {
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
 
-                port@0 {
-                    reg = <0x01>;
-                    phy-handle = <&ethphy5>;
-                };
+			sw1port1: port@1 {
+				reg = <0x01>;
+				label = "uplink";
+				phy-handle = <&swport5>;
+			};
 
-                port@1 {
-                    reg = <0x02>;
-                    phy-handle = <&ethphy6>;
-                };
+			sw1port2: port@2 {
+				reg = <0x02>;
+				label = "lan5";
+				phy-handle = <&ethphy6>;
+			};
 
-                port@2 {
-                    reg = <0x03>;
-                    phy-handle = <&ethphy7>;
-                };
+			sw1port3: port@3 {
+				reg = <0x03>;
+				label = "lan4";
+				phy-handle = <&ethphy7>;
+			};
 
-                port@3 {
-                    reg = <0x04>;
-                    phy-handle = <&ethphy8>;
-                };
+			sw1port4: port@4 {
+				reg = <0x04>;
+				label = "lan3";
+				phy-handle = <&ethphy8>;
+			};
 
-                port@4 {
-                    reg = <0x05>;
-                    phy-handle = <&ethphy9>;
-                };
+			sw1port5: port@5 {
+				reg = <0x05>;
+				label = "lan2";
+				phy-handle = <&ethphy9>;
+			};
 
-                port@5 {
-                    reg = <0x06>;
-                    phy-handle = <&ethphy10>;
-                };
-            };
-        };
+			sw1port6: port@6 {
+				reg = <0x06>;
+				label = "lan1";
+				phy-handle = <&ethphy10>;
+				phy-mode = "rgmii";
+			};
+		};
+	};
 };
 
+&switch {
+	dsa,member = <0 0>;
+};
+
+&swport2 {
+	label = "lan9";
+};
+
+&swport3 {
+	label = "lan8";
+};
+
+&swport4 {
+	label = "lan7";
+};
+
+&swport5 {
+	label = "downlink";
+};
+
+&ext_wifi {
+    status = "okay";
+};
+
+&wifi1 {
+	status = "disabled";
+};

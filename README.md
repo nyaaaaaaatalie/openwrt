@@ -1,3 +1,31 @@
+# OpenWRT for Cradlepoint
+
+This is a forked copy of OpenWRT for bleeding-edge development of support for Cradlepoint devices. 
+
+Do not expect anything in here to be stable, or not brick your router. You have been warned!
+
+This firmware exists to provide for new bespoke features not implemented in vendor firmware, and to reduce e-waste by supporting older, EoL/EoS devices. No attempt is made to circumvent any software license or copy protection. This project is not endorsed by Cradlepoint or Ericsson Wireless. All modifications are at your own risk.
+
+## Device Support
+
+All currently supported and in-development devices are listed below.
+
+| Model Name | Progress | Outstanding Issues |
+|------------|----------|--------------------|
+| IBR600C and IBR900 | 80% | Persistent storage in ubifs |
+| IBR1700    | 99%      | No show-stoppers. Some quality of life additions being worked on. |
+| AER2200    | 60%      | Ethernet is proving tricky. PoE will work but currently there is no control over the ports. All other peripherals work at this time. |
+| IBR1100    | 15%      | Very early stages of support. |
+| IBR600B    | 15%      | Very early stages of support. |
+
+## Install Instructions
+
+Currently, initial firmware is loaded by removing the SPI flash chip, modifying the `silent` and `bootwait` variables, re-installing, and TFTPing in a recovery image. From there the sysupgrade file is loaded which will install OpenWRT on the filesystem.
+
+More detailed instructions TBD.
+
+## Original Readme:
+
 ![OpenWrt logo](include/logo.png)
 
 OpenWrt Project is a Linux operating system targeting embedded devices. Instead

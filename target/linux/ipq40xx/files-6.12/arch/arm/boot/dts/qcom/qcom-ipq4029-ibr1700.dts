@@ -77,6 +77,20 @@
     };
 
     leds {
+		led_wwan_white: led-2 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_WHITE>;
+			gpios = <&tlmm 68 GPIO_ACTIVE_LOW>;
+			label = "white:wwan";
+		};
+
+		led_gps_blue: led-12 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			gpios = <&expander1 5 GPIO_ACTIVE_LOW>;
+			label = "blue:gps";
+		};
+
         led_5g_right_blue: led-3 {
             function = LED_FUNCTION_STATUS;
             color = <LED_COLOR_ID_BLUE>;

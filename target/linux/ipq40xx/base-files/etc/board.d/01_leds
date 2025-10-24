@@ -33,7 +33,8 @@ avm,fritzbox-7530)
 	ucidef_set_led_wlan "wlan" "WLAN" "green:wlan" "phy0tpt"
 	;;
 cradlepoint,aer2200)
-	ucidef_set_led_wlan "wlan2g" "WLAN2G" "green:wlan2g" "phy0radio"
+	ucidef_set_led_wlan "wlan5g" "WLAN5G" "blue:wlan5g" "phy0radio"
+	ucidef_set_led_wlan "wlan2g" "WLAN2G" "green:wlan2g" "phy1radio"
 	;;
 cradlepoint,ibr600c|\
 cradlepoint,ibr900)

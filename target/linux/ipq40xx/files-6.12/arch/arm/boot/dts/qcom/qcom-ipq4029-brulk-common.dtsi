@@ -129,13 +129,6 @@
 			label = "green:ext_modem";
 		};
 
-		led_wwan_white: led-2 {
-			function = LED_FUNCTION_STATUS;
-			color = <LED_COLOR_ID_WHITE>;
-			gpios = <&tlmm 68 GPIO_ACTIVE_LOW>;
-			label = "white:wwan";
-		};
-
 		led_ss_0_blue: led-7 {
 			function = LED_FUNCTION_STATUS;
 			color = <LED_COLOR_ID_BLUE>;
@@ -169,13 +162,6 @@
 			color = <LED_COLOR_ID_RED>;
 			gpios = <&expander1 4 GPIO_ACTIVE_LOW>;
 			label = "red:attn";
-		};
-
-		led_gps_blue: led-12 {
-			function = LED_FUNCTION_STATUS;
-			color = <LED_COLOR_ID_BLUE>;
-			gpios = <&expander1 5 GPIO_ACTIVE_LOW>;
-			label = "blue:gps";
 		};
 
 		led_2g_green: led-13 {
