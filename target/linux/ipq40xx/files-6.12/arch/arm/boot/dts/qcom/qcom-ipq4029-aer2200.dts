@@ -77,9 +77,14 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 
+			sw1port0: port@0 {
+				reg = <0x00>;
+				label = "cpu";
+			};
+
 			sw1port1: port@1 {
 				reg = <0x01>;
-				label = "uplink";
+				label = "lan6";
 				phy-handle = <&swport5>;
 			};
 
@@ -134,7 +139,7 @@
 };
 
 &swport5 {
-	label = "downlink";
+	label = "unsure";
 };
 
 &ext_wifi {
