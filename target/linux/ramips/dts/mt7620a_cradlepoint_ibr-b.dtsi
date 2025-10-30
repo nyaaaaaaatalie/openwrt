@@ -1,0 +1,249 @@
+#include "mt7620a.dtsi"
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
+#include <dt-bindings/leds/common.h>
+
+/ {
+	leds {
+		compatible = "gpio-leds";
+
+		led_wlan2g: wlan2g {
+			function = LED_FUNCTION_WLAN;
+			color = <LED_COLOR_ID_GREEN>;
+			label = "green:wlan2g";
+			linux,default-trigger = "phy1radio";
+		};
+
+		led_mdm1: mdm1 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_GREEN>;
+			label = "green:int_modem";
+		};
+
+		led_mdm1_red: mdm1_red {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_RED>;
+			label = "red:int_modem";
+		};
+
+		led_ss_0: ss_0 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			label = "blue:ss_0";
+		};
+
+		led_ss_1: ss_1 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			label = "blue:ss_1";
+		};
+
+		led_ss_2: ss_2 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			label = "blue:ss_2";
+		};
+
+		led_ss_3: ss_3 {
+			function = LED_FUNCTION_STATUS;
+			color = <LED_COLOR_ID_BLUE>;
+			label = "blue:ss_3";
+		};
+	};
+
+	gpio_export {
+		compatible = "gpio-export";
+
+		pwr_en_int1 {
+			gpio-export,name = "pwr_en_int1";
+			gpio-export,output = <1>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&gpio0 19 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_en_usb {
+			gpio-export,name = "pwr_en_usb";
+			gpio-export,output = <1>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&gpio0 18 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_off_latch {
+			gpio-export,name = "pwr_off_latch";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&gpio1 9 GPIO_ACTIVE_HIGH>;
+		};
+
+		pwr_off_toggle {
+			gpio-export,name = "pwr_off_toggle";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&gpio1 10 GPIO_ACTIVE_HIGH>;
+		};
+
+		conn_ign_sense {
+			gpio-export,name = "conn_ign_sense";
+			gpio-export,input = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&gpio2 26 GPIO_ACTIVE_LOW>;
+		};
+
+		conn_output {
+			gpio-export,name = "conn_output";
+			gpio-export,output = <0>;
+			gpio-export,direction_may_change = <0>;
+			gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
+		};
+	};
+
+	keys {
+		compatible = "gpio-keys";
+
+		reset {
+			label = "reset";
+			gpios = <&gpio2 31 GPIO_ACTIVE_LOW>;
+			// linux,code = <KEY_RESTART>;
+		};
+	};
+
+	nand {
+		compatible = "mtk,mt7620-nand";
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition@0 {
+				label = "Upgrade";
+				reg = <0x0 0x2000000>;
+			};
+
+			partition@2000000 {
+				label = "Filesystem";
+				reg = <0x2000000 0xe000000>;
+			};
+		};
+	};
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&gpio1 {
+	status = "okay";
+};
+
+&gpio2 {
+	status = "okay";
+};
+
+&gpio3 {
+	status = "okay";
+};
+
+&spi0 {
+	status = "okay";
+
+	flash0: flash@0 {
+		compatible = "jedec,spi-nor";
+		reg = <0>;
+		spi-max-frequency = <50000000>;
+		m25p,fast-read;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition@0 {
+				label = "bootloader";
+				reg = <0x0 0x30000>;
+				read-only;
+			};
+
+			partition@30000 {
+				label = "config";
+				reg = <0x30000 0x10000>;
+				read-only;
+			};
+
+			partition@40000 {
+				label = "factory";
+				reg = <0x40000 0x10000>;
+				read-only;
+
+				nvmem-layout {
+					compatible = "fixed-layout";
+					#address-cells = <1>;
+					#size-cells = <1>;
+
+					eeprom_factory_0: eeprom@0 {
+						reg = <0x0 0x200>;
+					};
+
+					eeprom_factory_8000: eeprom@8000 {
+						reg = <0x8000 0x200>;
+					};
+
+					macaddr_factory_28: macaddr@28 {
+						reg = <0x28 0x6>;
+					};
+				};
+			};
+
+			partition@50000 {
+				label = "kernel";
+				reg = <0x50000 0x1c0000>;
+			};
+
+			partition@210000 {
+				label = "rootfs";
+				reg = <0x210000 0xb60000>;
+			};
+
+			partition@d70000 {
+				label = "2nd Filemanager";
+				reg = <0xd70000 0x20000>;
+			};
+
+			partition@d90000 {
+				label = "Filemanager";
+				reg = <0xd90000 0x20000>;
+			};
+		};
+	};
+};
+
+&ethernet {
+	nvmem-cells = <&macaddr_factory_28>;
+	nvmem-cell-names = "mac-address";
+	mediatek,portmap = "llwll";
+};
+
+&wmac {
+	nvmem-cells = <&eeprom_factory_0>;
+	nvmem-cell-names = "eeprom";
+};
+
+&ehci {
+	status = "okay";
+};
+
+&ohci {
+	status = "okay";
+};
+
+&i2c {
+	status = "okay";
+
+	therm: temperature-sensor@4d {
+		compatible = "lm90";
+		reg = <0x4d>;
+		#thermal-sensor-cells = <1>;
+		status = "okay";
+	};
+};

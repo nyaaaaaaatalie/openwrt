@@ -49,6 +49,11 @@ comfast,cf-wr800n)
 	ucidef_set_led_netdev "lan" "lan" "white:ethernet" eth0.1
 	ucidef_set_led_netdev "wifi_led" "wifi" "white:wifi" "wlan0"
 	;;
+cradlepoint,ibr1100)
+	ucidef_set_led_switch "lan-1" "lan-1" "yellow:lan1" "switch0" "0x01"
+	ucidef_set_led_switch "lan-2" "lan-2" "yellow:lan2" "switch0" "0x02"
+	ucidef_set_led_switch "wan" "wan" "yellow:wan" "switch0" "0x04"
+	;;
 dlink,dir-806a-b1)
 	ucidef_set_led_netdev "wifi_led" "2.4g" "green:wlan" "phy1-ap0"
 	;;

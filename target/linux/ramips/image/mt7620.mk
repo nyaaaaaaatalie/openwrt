@@ -207,6 +207,16 @@ define Device/comfast_cf-wr800n
 endef
 TARGET_DEVICES += comfast_cf-wr800n
 
+define Device/cradlepoint_ibr600b
+  SOC := mt7620a
+  IMAGE_SIZE := 16384k
+  DEVICE_VENDOR := Cradlepoint
+  DEVICE_MODEL := IBR600B
+  DEVICE_PACKAGES := kmod-i2c-ralink kmod-phy-realtek
+  SUPPORTED_DEVICES += ibr600b
+endef
+TARGET_DEVICES += cradlepoint_ibr600b
+
 define Device/cradlepoint_ibr1100
   SOC := mt7620a
   IMAGE_SIZE := 16384k

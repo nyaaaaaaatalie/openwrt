@@ -15,8 +15,8 @@ All currently supported and in-development devices are listed below.
 | IBR600C and IBR900 | 80% | Persistent storage in ubifs |
 | IBR1700    | 99%      | No show-stoppers. Some quality of life additions being worked on. |
 | AER2200    | 60%      | Ethernet is proving tricky. PoE will work but currently there is no control over the ports. All other peripherals work at this time. |
-| IBR1100    | 15%      | Very early stages of support. |
-| IBR600B    | 15%      | Very early stages of support. |
+| IBR1100    | 80%      | Live image seems to be working with all peripherals. Pending persistent image installation. |
+| IBR600B    | 70%      | One ethernet port TBD. |
 
 ## Install Instructions
 
