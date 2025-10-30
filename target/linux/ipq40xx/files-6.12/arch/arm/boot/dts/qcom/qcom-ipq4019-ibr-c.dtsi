@@ -24,7 +24,7 @@
     };
 
 	chosen {
-		bootargs-append = " ubi.mtd=ubi ubi.block=0,1 root=/dev/ubiblock0_1";
+		bootargs-append = " ubi.mtd=ubi ubi.mtd=Filesystem ubi.block=0,1 root=/dev/ubiblock0_1";
 	};
 
     soc {
