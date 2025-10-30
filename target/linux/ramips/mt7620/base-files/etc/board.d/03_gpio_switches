@@ -9,6 +9,10 @@ case "$board" in
 bolt,bl100)
 	ucidef_add_gpio_switch "modem_enable" "Enable LTE Modem" "540" "1"
 	;;
+cradlepoint,ibr1100)
+	ucidef_add_gpio_switch "pwr_en_int1" "Internal Modem Enable" "530" "1"
+	ucidef_add_gpio_switch "pwr_en_usb" "USB Power Enable" "531" "1"
+	;;
 dlink,dir-510l)
 	ucidef_add_gpio_switch "usb_enable1" "USB 1A enable" "524" "0"
 	ucidef_add_gpio_switch "usb_enable05" "USB 0.5A enable" "525" "1"
