@@ -382,7 +382,7 @@ TARGET_DEVICES += compex_wpj428
 
 define Cradlepoint/base_pkgs
 DEVICE_PACKAGES += kmod-gpio-pca953x \
-uqmi kmod-usb-acm kmod-usb-net kmod-usb-net-cdc-qmi kmod-usb-serial kmod-usb-serial-option
+kmod-usb-acm kmod-usb-net kmod-usb-net-qmi-wwan kmod-usb-serial kmod-usb-serial-option
 endef
 
 
@@ -400,7 +400,7 @@ define Device/cradlepoint_ibr_c
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 8192k
 	IMAGE/sysupgrade.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | sysupgrade-tar kernel=$$$$@ | append-metadata
-	DEVICE_PACKAGES += kmod-spi-dev kmod-i2c-gpio
+	DEVICE_PACKAGES += kmod-spi-dev kmod-i2c-gpio cradlepoint-fstab-ibr-c
 endef
 
 
@@ -430,8 +430,8 @@ define Device/cradlepoint_brulk
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 8192k
 	IMAGES += sysupgrade.bin
-	IMAGE/sysupgrade.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | sysupgrade-tar kernel=$$$$@ | append-metadata
-	DEVICE_PACKAGES += kmod-mmc ath10k-firmware-qca9984 kmod-spi-dev kmod-hwmon-lm90 parted
+	IMAGE/sysupgrade.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | pad-extra 896 | sysupgrade-tar kernel=$$$$@ | append-metadata
+	DEVICE_PACKAGES += kmod-mmc ath10k-firmware-qca9984 kmod-spi-dev kmod-hwmon-lm90 cradlepoint-fstab-brulk
 endef
 
 

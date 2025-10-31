@@ -48,7 +48,7 @@ cradlepoint,ibr1700)
 		uci set system.@system[0].kconloglevel=3
 		uci set system.@system[0].conloglevel=3
 		# TODO: remove console from inittab
-
+		uci commit
 	fi
 	;;
 meraki,gx20|\
