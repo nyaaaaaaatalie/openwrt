@@ -828,10 +828,6 @@ static int rtl931x_set_ageing_time(unsigned long msec)
 
 	return 0;
 }
-void rtl931x_sw_init(struct rtl838x_switch_priv *priv)
-{
-/*	rtl931x_sds_init(priv); */
-}
 
 static void rtl931x_pie_lookup_enable(struct rtl838x_switch_priv *priv, int index)
 {
@@ -1385,11 +1381,6 @@ static void rtl931x_pie_init(struct rtl838x_switch_priv *priv)
 
 }
 
-static int rtl931x_l3_setup(struct rtl838x_switch_priv *priv)
-{
-	return 0;
-}
-
 static void rtl931x_vlan_port_keep_tag_set(int port, bool keep_outer, bool keep_inner)
 {
 	sw_w32(FIELD_PREP(RTL931X_VLAN_PORT_TAG_EGR_OTAG_STS_MASK,
@@ -1552,7 +1543,7 @@ static void rtldsa_931x_led_init(struct rtl838x_switch_priv *priv)
 		sw_w32_mask(0x3 << pos, 0, RTL931X_LED_PORT_COPR_SET_SEL_CTRL(i));
 
 		/* Skip port if not present (auto-detect) or not in forced mask */
-		if (!priv->ports[i].phy && !(forced_leds_per_port[i]))
+		if (!priv->ports[i].phy && !priv->pcs[i] && !(forced_leds_per_port[i]))
 			continue;
 
 		if (forced_leds_per_port[i] > 0)
@@ -1648,7 +1639,6 @@ const struct rtl838x_reg rtl931x_reg = {
 	.pie_rule_add = rtl931x_pie_rule_add,
 	.pie_rule_rm = rtl931x_pie_rule_rm,
 	.l2_learning_setup = rtl931x_l2_learning_setup,
-	.l3_setup = rtl931x_l3_setup,
 	.led_init = rtldsa_931x_led_init,
 	.enable_learning = rtldsa_931x_enable_learning,
 	.enable_flood = rtldsa_931x_enable_flood,
