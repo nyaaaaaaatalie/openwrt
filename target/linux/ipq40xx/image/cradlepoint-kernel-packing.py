@@ -13,7 +13,7 @@ if __name__ == '__main__':
     output_gzip_path = sys.argv[2]
     rootfs_file_path = sys.argv[3]
     
-    with (open(rootfs_file_path, 'r+b') as r):
+    with open(rootfs_file_path, 'r+b') as r:
         rootfs = r.read()
         curr_len = len(rootfs)
 
@@ -39,9 +39,9 @@ if __name__ == '__main__':
     
     footer = front_padding + b'\x00\x00\x00\x00\x27\x05\x19\x58' + fs_chksum + fs_len.to_bytes(4, "little") + b'\x00\x00\x00\x00'
 
-    with (open(input_gzip_path, 'rb') as i):
+    with open(input_gzip_path, 'rb') as i:
         in_file = i.read()
     
-    with (open(output_gzip_path, 'wb') as o):
+    with open(output_gzip_path, 'wb') as o:
         o.write(in_file)
         o.write(footer)

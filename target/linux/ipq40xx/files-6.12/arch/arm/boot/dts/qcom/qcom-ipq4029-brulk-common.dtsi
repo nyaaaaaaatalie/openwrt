@@ -328,7 +328,7 @@
 	pinctrl-names = "default";
 	status = "okay";
 
-	expander1: gpio@35 {
+	expander1: gpio@23 {
 		compatible = "ti,tca6424";
 		gpio-controller;
 		#gpio-cells = <2>;
@@ -337,7 +337,7 @@
 		reg = <0x23>;
 	};
 
-	therm: temperature-sensor@77 {
+	therm: temperature-sensor@4d {
 		compatible = "gmt,g781";
 		reg = <0x4d>;
 		#thermal-sensor-cells = <1>;

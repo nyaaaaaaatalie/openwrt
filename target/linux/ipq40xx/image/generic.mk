@@ -408,7 +408,8 @@ define Device/cradlepoint_ibr_c
 	PAGESIZE := 2048
 	IMAGE_SIZE := 65536k
 	KERNEL_SIZE := 8192k
-	IMAGE/sysupgrade.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | sysupgrade-tar kernel=$$$$@ | append-metadata
+	IMAGE/sysupgrade.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | pad-extra 896 | sysupgrade-tar kernel=$$$$@ | append-metadata
+	IMAGE/factory.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | pad-extra 896 | append-ubi
 	DEVICE_PACKAGES += kmod-spi-dev kmod-i2c-gpio cradlepoint-fstab-ibr-c
 endef
 
