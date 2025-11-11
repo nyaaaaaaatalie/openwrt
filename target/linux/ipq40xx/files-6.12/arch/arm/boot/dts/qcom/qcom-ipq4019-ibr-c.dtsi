@@ -23,6 +23,27 @@
         reg = <0x80000000 0x10000000>;
     };
 
+	reserved-memory {
+		#address-cells = <0x01>;
+		#size-cells = <0x01>;
+		ranges;
+
+		rsvd1@87000000 {
+				reg = <0x87000000 0x500000>;
+				no-map;
+		};
+
+		wifi_dump@87500000 {
+				reg = <0x87500000 0x600000>;
+				no-map;
+		};
+
+		rsvd2@87B00000 {
+				reg = <0x87b00000 0x500000>;
+				no-map;
+		};
+	};
+
 	chosen {
 		bootargs-append = " ubi.mtd=ubi ubi.mtd=Filesystem ubi.block=0,1 root=/dev/ubiblock0_1";
 	};
