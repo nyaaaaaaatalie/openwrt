@@ -14,7 +14,7 @@
 			compatible = "qcom,tcsr";
 			reg = <0x1953000 0x1000>;
 			// ???
-			qcom,ess-interface-select = <TCSR_ESS_PSGMII_RGMII5>;
+			qcom,ess-interface-select = <TCSR_ESS_PSGMII>;
 		};
 	};
 
@@ -38,7 +38,6 @@
 
 &mdio {
 	ethphy5: ethernet-phy@5 {
-		/* uplink? */
 		reg = <0x00>;
 	};
 
@@ -80,17 +79,25 @@
 			sw1port0: port@0 {
 				reg = <0x00>;
 				label = "cpu";
+				phy-mode = "sgmii";
+				ethernet = <&swport5>;
+				qca,sgmii-enable-pll;
+
+				fixed-link {
+					speed = <1000>;
+					full-duplex;
+				};
 			};
 
 			sw1port1: port@1 {
 				reg = <0x01>;
-				label = "lan6";
-				phy-handle = <&swport5>;
+				label = "lan2";
+				phy-handle = <&ethphy5>;
 			};
 
 			sw1port2: port@2 {
 				reg = <0x02>;
-				label = "lan5";
+				label = "lan3";
 				phy-handle = <&ethphy6>;
 			};
 
@@ -102,13 +109,13 @@
 
 			sw1port4: port@4 {
 				reg = <0x04>;
-				label = "lan3";
+				label = "lan5";
 				phy-handle = <&ethphy8>;
 			};
 
 			sw1port5: port@5 {
 				reg = <0x05>;
-				label = "lan2";
+				label = "lan6";
 				phy-handle = <&ethphy9>;
 			};
 
@@ -139,7 +146,17 @@
 };
 
 &swport5 {
-	label = "unsure";
+	label = "ds";
+	/*
+	fixed-link {
+		speed = <1000>;
+		full-duplex;
+	};
+	*/
+};
+
+&ethphy4 {
+	phy-mode = "sgmii";
 };
 
 &ext_wifi {

@@ -455,6 +455,7 @@ TARGET_DEVICES += cradlepoint_ibr1700
 define Device/cradlepoint_aer2200
 	$(call Device/cradlepoint_brulk)
 	DEVICE_MODEL := AER2200
+	DEVICE_PACKAGES += kmod-dsa-qca8k kmod-phy-qca83xx 
 endef
 TARGET_DEVICES += cradlepoint_aer2200
 
