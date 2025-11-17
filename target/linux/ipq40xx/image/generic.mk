@@ -441,7 +441,7 @@ define Device/cradlepoint_brulk
 	KERNEL_SIZE := 8192k
 	IMAGES += sysupgrade.bin
 	IMAGE/sysupgrade.bin = copy-vmlinux | gzip | cradlepoint-kernel-packing | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb | pad-extra 896 | sysupgrade-tar kernel=$$$$@ | append-metadata
-	DEVICE_PACKAGES += kmod-mmc ath10k-firmware-qca9984 kmod-spi-dev kmod-hwmon-lm90 cradlepoint-fstab-brulk cradlepoint-brulk-qca9984 block-mount
+	DEVICE_PACKAGES += kmod-mmc ath10k-firmware-qca9984 kmod-spi-dev kmod-hwmon-lm90 cradlepoint-fstab-brulk cradlepoint-brulk-qca9984 block-mount kmod-fs-f2fs
 endef
 
 
